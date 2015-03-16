@@ -54,9 +54,3 @@ table_t = Table_T.new(u, triple)
 puts "\nT: #{table_t.t}"
 table_t.add(u, triple)
 puts "\nT: #{table_t.t}"
-
-
-
-
-
-

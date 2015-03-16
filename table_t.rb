@@ -2,7 +2,6 @@ class Table_T
   attr_accessor :u, :triple, :t
 
   def initialize(u, triple)
-    # modify it to have 0 and 1 when initialized
     @t = Hash.new
     t[0] = nil
     t[1] = nil
