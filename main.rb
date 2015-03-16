@@ -19,5 +19,7 @@ end
 starter_kit = StarterKit.new(file_name)
 # read eblif file and set the instance variables after parsing the eblif file
 starter_kit.read_eblif
+puts 'ON SET: '
 puts starter_kit.on_set
+puts "\nDC SET: "
 puts starter_kit.dc_set
