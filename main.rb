@@ -3,6 +3,7 @@ require './starter_kit'
 require './triple'
 require './table_t'
 require './table_h'
+require './robdd'
 
 if ARGV[0]
   # give file name as a command line argument
@@ -54,3 +55,33 @@ table_t = Table_T.new(u, triple)
 puts "\nT: #{table_t.t}"
 table_t.add(u, triple)
 puts "\nT: #{table_t.t}"
+
+puts "Testing Shannon's expansion"
+puts "Minterms:"
+puts starter_kit.on_set
+puts "Number of variables:"
+puts starter_kit.number_of_inputs
+
+robdd = ROBDD.new
+
+puts "Setting x1 = 0 :"
+
+func_result0 = robdd.function_set_var_val(starter_kit.on_set,1, 0, starter_kit.number_of_inputs)
+
+puts func_result0
+
+puts "Setting x1 = 1 :"
+
+func_result1 = robdd.function_set_var_val(starter_kit.on_set,1, 1, starter_kit.number_of_inputs)
+
+puts func_result1
+
+puts "Setting x2 = 0, result00 :"
+
+func_result00 = robdd.function_set_var_val(func_result0.clone,2, 0, starter_kit.number_of_inputs)
+
+puts func_result00
+
+
+
+
