@@ -1,15 +1,15 @@
 class Table_T
-  attr_accessor :u, :triple, :t
+  attr_accessor :t
 
-  def initialize(u, triple)
+  def initialize
     @t = Hash.new
     t[0] = nil
     t[1] = nil
-    @u = u
-    @triple = triple
   end
 
-  def add(u, triple)
+  def add(triple)
+    u = t.size + 1
     t[u] = triple
+    u
   end
 end

@@ -6,4 +6,8 @@ class Triple
     @l = l
     @h = h
   end
+
+  def str
+    "i: #{i}, l: #{l}, h: #{h}"
+  end
 end

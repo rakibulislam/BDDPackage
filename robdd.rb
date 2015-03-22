@@ -1,4 +1,11 @@
 class ROBDD
+
+  attr_accessor :t, :h
+
+  def initialize
+    @t = Table_T.new
+    @h = Table_H.new
+  end
   
   def minterm_set_var_val(minterm, var_num, var_val)
     # minterm is a string representing the minterm, eg 11x for x1x2 in a 3 var case
@@ -13,8 +20,7 @@ class ROBDD
       minterm = '0'      
     end
     
-    return minterm   
-    
+    return minterm
   end
   
   def function_set_var_val(func,var_num, var_val, total_num_of_vars)
@@ -23,7 +29,6 @@ class ROBDD
     # var_val is 0 or 1 (i.e binary)
     
     minterm_equals_1 = 'x' * total_num_of_vars
-    
     func_result = []
     
     (0...func.length).each do |i|
@@ -36,7 +41,6 @@ class ROBDD
       else
         func_result << minterm_result
       end
-      
     end
     
     if func_result.length == 0  # all the minterms returned as zero
@@ -45,8 +49,18 @@ class ROBDD
       return func_result
     end    
   end
-  
-  
+
+  def make(triple)
+    if triple.l == triple.h
+      return triple.l
+    elsif h.member?(triple)
+      return h.lookup(triple)
+    else
+      u = t.add(triple)
+      h.insert(triple, u)
+      return u
+    end
+  end
 end
 
 # Test Area
@@ -54,7 +68,4 @@ end
 # r = ROBDD.new
 # min = 'x01'
 # retVal = r.minterm_set_var_val(min, 2, 0)
-# 
 # puts retVal
-
-
