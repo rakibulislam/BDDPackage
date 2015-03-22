@@ -30,31 +30,6 @@ puts starter_kit.dc_set
 
 triple = Triple.new(4, 1, 0) # (i, l, h)
 triple_2 = Triple.new(4, 0, 1)
-u = 2
-table_h = Table_H.new(u, triple)
-table_h.insert(triple, u)
-
-puts "\nTable_H methods testing..."
-puts "\nH: #{table_h.h}"
-puts "lookup : #{table_h.lookup(triple).inspect}"
-puts "member? : #{table_h.member?(triple)}"
-puts "lookup : #{table_h.lookup(triple_2).inspect}"
-puts "member? : #{table_h.member?(triple_2)}"
-
-u = 3
-table_h.insert(triple_2, u)
-puts '- - - - - - - - '
-puts "\nH: #{table_h.h}"
-puts "lookup : #{table_h.lookup(triple).inspect}"
-puts "member? : #{table_h.member?(triple)}"
-puts "lookup : #{table_h.lookup(triple_2).inspect}"
-puts "member? : #{table_h.member?(triple_2)}"
-
-puts "\nTable_T methods testing..."
-table_t = Table_T.new(u, triple)
-puts "\nT: #{table_t.t}"
-table_t.add(u, triple)
-puts "\nT: #{table_t.t}"
 
 puts "Testing Shannon's expansion"
 puts "Minterms:"
@@ -64,24 +39,42 @@ puts starter_kit.number_of_inputs
 
 robdd = ROBDD.new
 
-puts "Setting x1 = 0 :"
-
+puts "Setting x1 = 0 : "
 func_result0 = robdd.function_set_var_val(starter_kit.on_set,1, 0, starter_kit.number_of_inputs)
-
 puts func_result0
 
 puts "Setting x1 = 1 :"
-
 func_result1 = robdd.function_set_var_val(starter_kit.on_set,1, 1, starter_kit.number_of_inputs)
-
 puts func_result1
 
 puts "Setting x2 = 0, result00 :"
-
 func_result00 = robdd.function_set_var_val(func_result0.clone,2, 0, starter_kit.number_of_inputs)
-
 puts func_result00
 
+puts "\nBefore making any node ..."
+puts "table_t: #{robdd.t.t}"
+puts "table_h: #{robdd.h.h}"
+puts "lookup : #{robdd.h.lookup(triple).inspect}"
+puts "member? : #{robdd.h.member?(triple)}"
+puts "lookup : #{robdd.h.lookup(triple_2).inspect}"
+puts "member? : #{robdd.h.member?(triple_2)}"
 
+puts "\nTesting Make method ..."
 
+puts "make(#{triple.str}) ...."
+robdd.make(triple)
+puts "table_t: #{robdd.t.t}"
+puts "table_h: #{robdd.h.h}"
+puts "lookup : #{robdd.h.lookup(triple).inspect}"
+puts "member? : #{robdd.h.member?(triple)}"
+puts "lookup : #{robdd.h.lookup(triple_2).inspect}"
+puts "member? : #{robdd.h.member?(triple_2)}"
 
+puts "make(#{triple_2.str}) ...."
+robdd.make(triple_2)
+puts "table_t: #{robdd.t.t}"
+puts "table_h: #{robdd.h.h}"
+puts "lookup : #{robdd.h.lookup(triple).inspect}"
+puts "member? : #{robdd.h.member?(triple)}"
+puts "lookup : #{robdd.h.lookup(triple_2).inspect}"
+puts "member? : #{robdd.h.member?(triple_2)}"

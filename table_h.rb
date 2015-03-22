@@ -1,10 +1,8 @@
 class Table_H
-  attr_accessor :u, :triple, :h
+  attr_accessor :h
 
-  def initialize(u, triple)
+  def initialize
     @h = Hash.new
-    @u = u
-    @triple = triple
   end
 
   def member?(triple)
