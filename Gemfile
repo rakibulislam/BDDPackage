@@ -1,4 +1,5 @@
 source 'http://rubygems.org'
 gem 'pry'
 gem 'colorize'
-gem 'rubocop'
+# gem 'rubocop'
+#gem 'ruby_deep_clone'
