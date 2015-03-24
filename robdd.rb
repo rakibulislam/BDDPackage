@@ -1,5 +1,3 @@
-require
-
 class ROBDD
 
   attr_accessor :t, :h
