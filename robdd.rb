@@ -1,3 +1,5 @@
+require "deep_clone"
+
 class ROBDD
 
   attr_accessor :t, :h
@@ -75,12 +77,13 @@ class ROBDD
       puts "Calling v0:"
       puts "i is: #{i.inspect}"
       puts "func: #{func.inspect}"
-      v0 = build_func(function_set_var_val(deep_copy_func(func), i,0,num_of_vars),i+1,num_of_vars)
+
+      v0 = build_func(function_set_var_val(DeepClone.clone(func), i,0,num_of_vars),i+1,num_of_vars)
 
       puts "Calling v1:"
       puts "i is: #{i.inspect}"
       puts "func: #{func.inspect}"
-      v1 = build_func(function_set_var_val(deep_copy_func(func), i,1,num_of_vars),i+1,num_of_vars)
+      v1 = build_func(function_set_var_val(DeepClone.clone(func), i,1,num_of_vars),i+1,num_of_vars)
 
       triple = Triple.new(i,v0,v1)
 
