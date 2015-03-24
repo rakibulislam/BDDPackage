@@ -35,7 +35,7 @@ class ROBDD
       minterm_result = minterm_set_var_val(func[i],var_num,var_val)
       
       if(minterm_result == minterm_equals_1)
-        return '1' # the whole function value is 1 if any minterm is 1
+        return ['1'] # the whole function value is 1 if any minterm is 1
       elsif (minterm_result == '0')
         # a zero minterm is redundant, so no need to add it to the function's result
       else
@@ -61,6 +61,25 @@ class ROBDD
       return u
     end
   end
+
+  def build_func(func, i, num_of_vars)
+    if i > num_of_vars
+      if func.length == 1 && func[0] == '0'
+        return 0
+      else
+        return 1
+      end
+    else
+      v0 = build_func(function_set_var_val(func, i,0,num_of_vars),i+1,num_of_vars)
+      v1 = build_func(function_set_var_val(func, i,1,num_of_vars),i+1,num_of_vars)
+
+      triple = Triple.new(i,v0,v1)
+
+      return make(triple)
+    end
+
+  end
+
 end
 
 # Test Area
