@@ -1,3 +1,5 @@
+require
+
 class ROBDD
 
   attr_accessor :t, :h
@@ -23,11 +25,11 @@ class ROBDD
     return minterm
   end
   
-  def function_set_var_val(func,var_num, var_val, total_num_of_vars)
+  def function_set_var_val(_func,var_num, var_val, total_num_of_vars)
     # func is an array of strings representing the sum of minterms, eg 11x + x01
     # var_num is 1 based
     # var_val is 0 or 1 (i.e binary)
-    
+    func = _func.clone
     minterm_equals_1 = 'x' * total_num_of_vars
     func_result = []
     
@@ -62,7 +64,8 @@ class ROBDD
     end
   end
 
-  def build_func(func, i, num_of_vars)
+  def build_func(_func, i, num_of_vars)
+    func = _func.clone
     if i > num_of_vars
       if func.length == 1 && func[0] == '0'
         return 0
@@ -70,8 +73,8 @@ class ROBDD
         return 1
       end
     else
-      v0 = build_func(function_set_var_val(func, i,0,num_of_vars),i+1,num_of_vars)
-      v1 = build_func(function_set_var_val(func, i,1,num_of_vars),i+1,num_of_vars)
+      v0 = build_func(function_set_var_val(func.clone, i,0,num_of_vars),i+1,num_of_vars)
+      v1 = build_func(function_set_var_val(func.clone, i,1,num_of_vars),i+1,num_of_vars)
 
       triple = Triple.new(i,v0,v1)
 
