@@ -1,4 +1,4 @@
-require
+#require
 
 class ROBDD
 
@@ -73,13 +73,24 @@ class ROBDD
         return 1
       end
     else
-      v0 = build_func(function_set_var_val(func.clone, i,0,num_of_vars),i+1,num_of_vars)
-      v1 = build_func(function_set_var_val(func.clone, i,1,num_of_vars),i+1,num_of_vars)
+      v0 = build_func(function_set_var_val(deep_copy_func(func), i,0,num_of_vars),i+1,num_of_vars)
+      v1 = build_func(function_set_var_val(deep_copy_func(func), i,1,num_of_vars),i+1,num_of_vars)
 
       triple = Triple.new(i,v0,v1)
 
       return make(triple)
     end
+
+  end
+
+  def deep_copy_func(input)
+    output = []
+
+    (0...input.length).each do |i|
+      output << input[i]
+    end
+
+    output
 
   end
 
