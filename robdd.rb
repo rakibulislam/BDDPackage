@@ -80,7 +80,7 @@ class ROBDD
       puts "Calling v1:"
       puts "i is: #{i.inspect}"
       puts "func: #{func.inspect}"
-      v1 = build_func(function_set_var_val(deep_copy_func(func), i,1,num_of_vars),i+1,num_of_vars)
+      v1 = build_func(function_set_var_val(deep_copy_func(_func), i,1,num_of_vars),i+1,num_of_vars)
 
       triple = Triple.new(i,v0,v1)
 
