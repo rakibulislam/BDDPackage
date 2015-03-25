@@ -26,17 +26,17 @@ starter_kit = StarterKit.new(file_name)
 starter_kit.read_eblif
 puts 'ON SET: '
 puts starter_kit.on_set
-puts "\nDC SET: "
-puts starter_kit.dc_set
+# puts "\nDC SET: "
+# puts starter_kit.dc_set
 
 triple = Triple.new(4, 1, 0) # (i, l, h)
 triple_2 = Triple.new(4, 0, 1)
 
-puts "Testing Shannon's expansion"
-puts "Minterms:"
-puts starter_kit.on_set
-puts "Number of variables:"
-puts starter_kit.number_of_inputs
+# puts "Testing Shannon's expansion"
+# puts "Minterms:"
+# puts starter_kit.on_set
+# puts "Number of variables:"
+# puts starter_kit.number_of_inputs
 
 robdd = ROBDD.new
 
