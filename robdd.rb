@@ -25,11 +25,11 @@ class ROBDD
     return minterm
   end
   
-  def function_set_var_val(_func,var_num, var_val, total_num_of_vars)
+  def function_set_var_val(func,var_num, var_val, total_num_of_vars)
     # func is an array of strings representing the sum of minterms, eg 11x + x01
     # var_num is 1 based
     # var_val is 0 or 1 (i.e binary)
-    func = _func.clone
+    #func = _func.clone
     minterm_equals_1 = 'x' * total_num_of_vars
     func_result = []
     
@@ -64,8 +64,8 @@ class ROBDD
     end
   end
 
-  def build_func(_func, i, num_of_vars)
-    func = _func.clone
+  def build_func(func, i, num_of_vars)
+    #func = _func.clone
 
     # cases when the end nodes (i.e 0 or 1) is reached
     if func.length == 1
