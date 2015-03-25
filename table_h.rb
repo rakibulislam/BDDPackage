@@ -6,14 +6,21 @@ class Table_H
   end
 
   def member?(triple)
-    h.keys.include? triple
+    key = build_key(triple)
+    h.keys.include? key
   end
 
   def lookup(triple)
-    h[triple]
+    key = build_key(triple)
+    h[key]
   end
 
   def insert(triple, u)
-    h[triple] = u
+    key = build_key(triple)
+    h[key] = u
+  end
+
+  def build_key(triple)
+    "i: #{triple.i}, l: #{triple.l}, h: #{triple.h}"
   end
 end
