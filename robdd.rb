@@ -66,6 +66,16 @@ class ROBDD
 
   def build_func(_func, i, num_of_vars)
     func = _func.clone
+
+    # cases when the end nodes (i.e 0 or 1) is reached
+    if func.length == 1
+      if func[0] == '0'
+        return 0
+      elsif func[0] == '1'
+        return 1
+      end
+    end
+
     if i > num_of_vars
       if func.length == 1 && func[0] == '0'
         return 0
@@ -80,12 +90,15 @@ class ROBDD
 
       v0 = build_func(function_set_var_val(Marshal.load(Marshal.dump(func)), i,0,num_of_vars),i+1,num_of_vars)
 
+      puts "return value of v0: #{v0.inspect}"
+
       puts "Calling v1:"
       puts "i is: #{i.inspect}"
       puts "func: #{func.inspect}"
 
       v1 = build_func(function_set_var_val(Marshal.load(Marshal.dump(func)), i,1,num_of_vars),i+1,num_of_vars)
 
+      puts "return value of v1: #{v1.inspect}"
 
       triple = Triple.new(i,v0,v1)
 

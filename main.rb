@@ -10,9 +10,9 @@ if ARGV[0]
   file_name = "#{ARGV[0].strip}.eblif"
 else
   # read file based on command line input
-  #print "\nEnter a digit for file name (1 for node1) or enter file name: ".colorize(:blue)
-  #file_number = gets.chomp
-  file_number = 'node9' # changes for debugging only
+  print "\nEnter a digit for file name (1 for node1) or enter file name: "
+  file_number = gets.chomp
+  #file_number = 'node9' # changes for debugging only
 
   if file_number =~ /^\d+$/
     file_name = "node#{file_number}.eblif"
