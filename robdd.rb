@@ -1,3 +1,5 @@
+#require "deep_clone"
+
 class ROBDD
 
   attr_accessor :t, :h
@@ -27,7 +29,7 @@ class ROBDD
     # func is an array of strings representing the sum of minterms, eg 11x + x01
     # var_num is 1 based
     # var_val is 0 or 1 (i.e binary)
-    
+    #func = _func.clone
     minterm_equals_1 = 'x' * total_num_of_vars
     func_result = []
     
@@ -35,7 +37,7 @@ class ROBDD
       minterm_result = minterm_set_var_val(func[i],var_num,var_val)
       
       if(minterm_result == minterm_equals_1)
-        return '1' # the whole function value is 1 if any minterm is 1
+        return ['1'] # the whole function value is 1 if any minterm is 1
       elsif (minterm_result == '0')
         # a zero minterm is redundant, so no need to add it to the function's result
       else
@@ -61,6 +63,61 @@ class ROBDD
       return u
     end
   end
+
+  def build_func(func, i, num_of_vars)
+    #func = _func.clone
+
+    # cases when the end nodes (i.e 0 or 1) is reached
+    if func.length == 1
+      if func[0] == '0'
+        return 0
+      elsif func[0] == '1'
+        return 1
+      end
+    end
+
+    if i > num_of_vars
+      if func.length == 1 && func[0] == '0'
+        return 0
+      else
+        return 1
+      end
+    else
+      puts "t.t: #{t.t.inspect}"
+      puts "Calling v0:"
+      puts "i is: #{i.inspect}"
+      puts "func: #{func.inspect}"
+
+      v0 = build_func(function_set_var_val(Marshal.load(Marshal.dump(func)), i,0,num_of_vars),i+1,num_of_vars)
+
+      puts "return value of v0: #{v0.inspect}"
+
+      puts "Calling v1:"
+      puts "i is: #{i.inspect}"
+      puts "func: #{func.inspect}"
+
+      v1 = build_func(function_set_var_val(Marshal.load(Marshal.dump(func)), i,1,num_of_vars),i+1,num_of_vars)
+
+      puts "return value of v1: #{v1.inspect}"
+
+      triple = Triple.new(i,v0,v1)
+
+      return make(triple)
+    end
+
+  end
+
+  def deep_copy_func(input)
+    output = []
+
+    (0...input.length).each do |i|
+      output << input[i]
+    end
+
+    output
+
+  end
+
 end
 
 # Test Area
