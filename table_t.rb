@@ -8,7 +8,7 @@ class Table_T
   end
 
   def add(triple)
-    u = t.size + 1
+    u = t.size
     t[u] = triple
     u
   end
