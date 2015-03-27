@@ -21,7 +21,7 @@ class ROBDD
     return minterm
   end
   
-  def function_set_var_val(func,var_num, var_val, total_num_of_vars)
+  def function_set_var_val(func, var_num, var_val, total_num_of_vars)
     # func is an array of strings representing the sum of minterms, eg 11x + x01
     # var_num is 1 based
     # var_val is 0 or 1 (i.e binary)
@@ -30,7 +30,7 @@ class ROBDD
     func_result = []
     
     (0...func.length).each do |i|
-      minterm_result = minterm_set_var_val(func[i],var_num,var_val)
+      minterm_result = minterm_set_var_val(func[i], var_num, var_val)
       
       if(minterm_result == minterm_equals_1)
         return ['1'] # the whole function value is 1 if any minterm is 1
@@ -83,17 +83,17 @@ class ROBDD
       puts "i is: #{i.inspect}"
       puts "func: #{func.inspect}"
 
-      v0 = build_func(function_set_var_val(Marshal.load(Marshal.dump(func)), i,0,num_of_vars),i+1,num_of_vars)
+      v0 = build_func(function_set_var_val(Marshal.load(Marshal.dump(func)), i, 0, num_of_vars), i+1, num_of_vars)
 
       puts "return value of v0: #{v0.inspect}"
       puts "Calling v1:"
       puts "i is: #{i.inspect}"
       puts "func: #{func.inspect}"
 
-      v1 = build_func(function_set_var_val(Marshal.load(Marshal.dump(func)), i,1,num_of_vars),i+1,num_of_vars)
+      v1 = build_func(function_set_var_val(Marshal.load(Marshal.dump(func)), i, 1, num_of_vars), i+1, num_of_vars)
       puts "return value of v1: #{v1.inspect}"
 
-      return make(Triple.new(i,v0,v1))
+      return make(Triple.new(i, v0, v1))
     end
   end
 
