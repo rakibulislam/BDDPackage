@@ -84,4 +84,3 @@ puts "Creating the ROBDD:"
 robdd.build_func(starter_kit.on_set,1,starter_kit.number_of_inputs)
 puts "table_t: #{robdd.t.t}"
 puts "table_h: #{robdd.h.h}"
-

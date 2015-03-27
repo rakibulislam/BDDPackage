@@ -1,7 +1,4 @@
-#require "deep_clone"
-
 class ROBDD
-
   attr_accessor :t, :h
 
   def initialize
@@ -13,7 +10,6 @@ class ROBDD
     # minterm is a string representing the minterm, eg 11x for x1x2 in a 3 var case
     # var_num is 1 based
     # var_val is 0 or 1 (i.e binary)
-    
     if(minterm[var_num-1] == 'x') # variable is absent in minterm
       return minterm
     elsif(minterm[var_num-1] == var_val.to_s) 
@@ -66,7 +62,6 @@ class ROBDD
 
   def build_func(func, i, num_of_vars)
     #func = _func.clone
-
     # cases when the end nodes (i.e 0 or 1) is reached
     if func.length == 1
       if func[0] == '0'
@@ -91,33 +86,26 @@ class ROBDD
       v0 = build_func(function_set_var_val(Marshal.load(Marshal.dump(func)), i,0,num_of_vars),i+1,num_of_vars)
 
       puts "return value of v0: #{v0.inspect}"
-
       puts "Calling v1:"
       puts "i is: #{i.inspect}"
       puts "func: #{func.inspect}"
 
       v1 = build_func(function_set_var_val(Marshal.load(Marshal.dump(func)), i,1,num_of_vars),i+1,num_of_vars)
-
       puts "return value of v1: #{v1.inspect}"
 
-      triple = Triple.new(i,v0,v1)
-
-      return make(triple)
+      return make(Triple.new(i,v0,v1))
     end
-
   end
 
-  def deep_copy_func(input)
-    output = []
-
-    (0...input.length).each do |i|
-      output << input[i]
-    end
-
-    output
-
-  end
-
+  # def deep_copy_func(input)
+  #   output = []
+  #
+  #   (0...input.length).each do |i|
+  #     output << input[i]
+  #   end
+  #
+  #   output
+  # end
 end
 
 # Test Area
