@@ -84,11 +84,24 @@ class ROBDD
     end
   end
 
+  def apply(op, u1, u2) #u1 and u2 are two triple's keys u -> <i, l, h>
+    g = {}
+    key = build_key_for_g(u1, u2)
+    if g[key].present?
+      return g[key]
+    elsif ([0, 1].include? u1) && ([0, 1].include? u2)
+
+    end
+  end
+
   def build_key_for_g(u1, u2)
     "#{u1},#{u2}"
   end
 
   def op(u1, u2)
     return 0 if u1 == 0 && u2 == 0
+    return 0 if u1 == 0 && u2 == 1
+    return 0 if u1 == 1 && u2 == 0
+    return 1 if u1 == 1 && u2 == 1
   end
 end
