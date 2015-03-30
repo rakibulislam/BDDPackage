@@ -4,6 +4,7 @@ require './triple'
 require './table_t'
 require './table_h'
 require './robdd'
+require 'pp'
 
 if ARGV[0]
   # give file name as a command line argument
@@ -29,7 +30,10 @@ puts starter_kit.on_set
 
 robdd = ROBDD.new
 
-puts "Creating the ROBDD:"
+puts 'Creating the ROBDD . . .'
 robdd.build_func(starter_kit.on_set, 1, starter_kit.number_of_inputs)
-puts "table_t: #{robdd.t.t}"
-puts "table_h: #{robdd.h.h}"
+puts 'table_t: '
+pp(robdd.t.t)
+puts
+puts 'table_h: '
+pp(robdd.h.h)
