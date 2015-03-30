@@ -78,39 +78,17 @@ class ROBDD
         return 1
       end
     else
-      puts "t.t: #{t.t.inspect}"
-      puts "Calling v0:"
-      puts "i is: #{i.inspect}"
-      puts "func: #{func.inspect}"
-
       v0 = build_func(function_set_var_val(Marshal.load(Marshal.dump(func)), i, 0, num_of_vars), i+1, num_of_vars)
-
-      puts "return value of v0: #{v0.inspect}"
-      puts "Calling v1:"
-      puts "i is: #{i.inspect}"
-      puts "func: #{func.inspect}"
-
       v1 = build_func(function_set_var_val(Marshal.load(Marshal.dump(func)), i, 1, num_of_vars), i+1, num_of_vars)
-      puts "return value of v1: #{v1.inspect}"
-
       return make(Triple.new(i, v0, v1))
     end
   end
 
-  # def deep_copy_func(input)
-  #   output = []
-  #
-  #   (0...input.length).each do |i|
-  #     output << input[i]
-  #   end
-  #
-  #   output
-  # end
-end
+  def build_key_for_g(u1, u2)
+    "#{u1},#{u2}"
+  end
 
-# Test Area
-#
-# r = ROBDD.new
-# min = 'x01'
-# retVal = r.minterm_set_var_val(min, 2, 0)
-# puts retVal
+  def op(u1, u2)
+    return 0 if u1 == 0 && u2 == 0
+  end
+end
