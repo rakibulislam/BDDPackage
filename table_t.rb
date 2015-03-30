@@ -9,7 +9,11 @@ class Table_T
 
   def add(triple)
     u = t.size
-    t[u] = triple
+    t[u] = build_value(triple)
     u
+  end
+
+  def build_value(triple)
+    "i: #{triple.i}, l: #{triple.l}, h: #{triple.h}"
   end
 end
