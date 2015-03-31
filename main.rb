@@ -28,7 +28,7 @@ starter_kit.read_eblif
 puts 'ON SET: '
 puts starter_kit.on_set
 
-robdd = ROBDD.new
+robdd = ROBDD.new(starter_kit.number_of_inputs)
 
 puts 'Creating the ROBDD . . .'
 robdd.build_func(starter_kit.on_set, 1, starter_kit.number_of_inputs)

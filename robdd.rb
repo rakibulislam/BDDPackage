@@ -1,15 +1,26 @@
 class ROBDD
-  attr_accessor :t, :h
+  attr_accessor :t, :h,  :var_order
 
-  def initialize
+  def initialize(num_of_vars)
     @t = Table_T.new
     @h = Table_H.new
+
+    # dynamic var_order is needed for sifting
+    @var_order = []
+    set_initial_var_order(num_of_vars)
+  end
+
+  def set_initial_var_order(num_of_vars)
+    (1..num_of_vars).each do |i|
+      var_order << 1
+    end
   end
   
   def minterm_set_var_val(minterm, var_num, var_val)
     # minterm is a string representing the minterm, eg 11x for x1x2 in a 3 var case
     # var_num is 1 based
     # var_val is 0 or 1 (i.e binary)
+
     if(minterm[var_num-1] == 'x') # variable is absent in minterm
       return minterm
     elsif(minterm[var_num-1] == var_val.to_s) 
