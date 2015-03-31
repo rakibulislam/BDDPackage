@@ -12,14 +12,17 @@ class ROBDD
 
   def set_initial_var_order(num_of_vars)
     (1..num_of_vars).each do |i|
-      var_order << 1
+      var_order << i
     end
   end
   
-  def minterm_set_var_val(minterm, var_num, var_val)
+  def minterm_set_var_val(minterm, i, var_val)
     # minterm is a string representing the minterm, eg 11x for x1x2 in a 3 var case
-    # var_num is 1 based
+    # i is 1 based index
     # var_val is 0 or 1 (i.e binary)
+
+    # var_num is 1 based
+    var_num = var_order[i-1]
 
     if(minterm[var_num-1] == 'x') # variable is absent in minterm
       return minterm
