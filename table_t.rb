@@ -5,11 +5,15 @@ class Table_T
     @t = Hash.new
     t[0] = nil
     t[1] = nil
+    @node_counter = 2 #first two nodes are 0 and 1 nodes
   end
 
   def add(triple)
-    u = t.size
-    t[u] = build_value(triple)
+    #u = t.size
+    u = @node_counter
+    @node_counter = @node_counter + 1
+    #t[u] = build_value(triple)
+    t[u] = triple
     u
   end
 

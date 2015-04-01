@@ -37,3 +37,10 @@ pp(robdd.t.t)
 puts
 puts 'table_h: '
 pp(robdd.h.h)
+
+puts 'Finding nodes with var 3:'
+puts robdd.find_nodes_with_var(3).inspect
+
+puts 'Finding parents for node 2:'
+puts robdd.find_parent_nodes(2).inspect
+

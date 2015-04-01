@@ -15,6 +15,32 @@ class ROBDD
       var_order << i
     end
   end
+
+  def find_nodes_with_var(var_num)
+    nodes_with_var = Hash.new
+
+    (2...t.t.size).each do |k|
+      if(t.t[k].i == var_num)
+        nodes_with_var[k] = t.t[k]
+      end
+    end
+
+    return nodes_with_var
+
+  end
+
+  def find_parent_nodes(node_num)
+    parent_nodes = Hash.new
+
+    (2...t.t.size).each do |k|
+      if t.t[k].l == node_num || t.t[k].h == node_num
+        parent_nodes[k] = t.t[k]
+      end
+    end
+
+    return parent_nodes
+
+  end
   
   def minterm_set_var_val(minterm, i, var_val)
     # minterm is a string representing the minterm, eg 11x for x1x2 in a 3 var case
