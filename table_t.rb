@@ -14,6 +14,7 @@ class Table_T
   end
 
   def build_value(triple)
-    "i: #{triple.i}, l: #{triple.l}, h: #{triple.h}"
+    { i: triple.i, l: triple.l, h: triple.h }
+    # "i: #{triple.i}, l: #{triple.l}, h: #{triple.h}"
   end
 end
