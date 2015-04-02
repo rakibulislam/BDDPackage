@@ -17,6 +17,21 @@ class Table_T
     u
   end
 
+  def delete_node(node_num)
+    t.delete(node_num)
+  end
+
+  def get_node(node_num)
+    return t[node_num]
+  end
+
+  def set_node_value(node_num, i,h,l)
+    triple = t[node_num]
+    triple.i = i
+    triple.l = l
+    triple.h = h
+  end
+
   def build_value(triple)
     "i: #{triple.i}, l: #{triple.l}, h: #{triple.h}"
   end
