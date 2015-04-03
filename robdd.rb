@@ -87,21 +87,26 @@ class ROBDD
 
   end
 
-  def swap_vars(upper_level_var_num, lower_level_var_num)
-    all_upper_nodes = find_nodes_with_var(upper_level_var_num)
-    all_lower_nodes = find_nodes_with_var(lower_level_var_num)
+  def get_size()
+    return t.t.size
+  end
+
+  def swap_vars(upper_level_var, lower_level_var)
+
+    all_upper_nodes = find_nodes_with_var(upper_level_var)
+    all_lower_nodes = find_nodes_with_var(lower_level_var)
 
     all_upper_nodes.each do |upper_node_num,upper_node|
 
       low_child_node = t.get_node(upper_node.l)
       high_child_node = t.get_node(upper_node.h)
 
-      if low_child_node.i != lower_level_var_num
-        add_redundant_node(upper_node_num,upper_node.l,lower_level_var_num)
+      if low_child_node.i != lower_level_var
+        add_redundant_node(upper_node_num,upper_node.l,lower_level_var)
       end
 
-      if high_child_node.i != lower_level_var_num
-        add_redundant_node(upper_node_num,upper_node.h,lower_level_var_num)
+      if high_child_node.i != lower_level_var
+        add_redundant_node(upper_node_num,upper_node.h,lower_level_var)
       end
 
     end
@@ -111,14 +116,14 @@ class ROBDD
       parent_nodes = find_parent_nodes(lower_node_num)
 
       parent_nodes.each do |parent_node_num, parent_node|
-        if parent_node.i != upper_level_var_num
-          add_redundant_node(parent_node_num,lower_node_num,upper_level_var_num)
+        if parent_node.i != upper_level_var
+          add_redundant_node(parent_node_num,lower_node_num,upper_level_var)
         end
       end
     end
 
     # updating node list, since it might have changed
-    all_upper_nodes = find_nodes_with_var(upper_level_var_num)
+    all_upper_nodes = find_nodes_with_var(upper_level_var)
 
     all_upper_nodes.each do |upper_node_num, upper_node|
 
@@ -133,10 +138,10 @@ class ROBDD
       v00 = t.get_node(v0).l
 
       #doing the actual swap
-      t.set_node_value(v1, upper_level_var_num,v11,v01)
-      t.set_node_value(v0, upper_level_var_num,v10,v00)
+      t.set_node_value(v1, upper_level_var,v11,v01)
+      t.set_node_value(v0, upper_level_var,v10,v00)
 
-      t.set_node_value(upper_node_num, lower_level_var_num,v1,v0)
+      t.set_node_value(upper_node_num, lower_level_var,v1,v0)
 
     end
 
@@ -144,8 +149,8 @@ class ROBDD
     # need to remove redundant nodes
 
 
-    all_lower_nodes = find_nodes_with_var(lower_level_var_num)
-    all_upper_nodes = find_nodes_with_var(upper_level_var_num)
+    all_lower_nodes = find_nodes_with_var(lower_level_var)
+    all_upper_nodes = find_nodes_with_var(upper_level_var)
 
     all_lower_nodes.each do |node_num, node|
       remove_redundant_node(node_num)
@@ -155,7 +160,14 @@ class ROBDD
       remove_redundant_node(node_num)
     end
 
-    #Table t should have ROBDD at this point
+    #Table t should have a ROBDD at this point
+
+    # updating the var_order
+    upper_var_index = var_order.index(upper_level_var)
+    lower_var_index = var_order.index(lower_level_var)
+
+    var_order[upper_var_index] = lower_level_var
+    var_order[lower_var_index] = upper_level_var
 
   end
 
