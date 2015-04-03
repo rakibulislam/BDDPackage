@@ -5,6 +5,7 @@ require './table_t'
 require './table_h'
 require './robdd'
 require 'pp'
+require 'benchmark'
 
 if ARGV[0]
   # give file names as a command line argument comma separated
@@ -27,7 +28,7 @@ robdd_1.build_func(starter_kit.on_set, 1, starter_kit.number_of_inputs)
 t1 = robdd_1.t.t
 u1 = t1.keys[-1]
 num_inputs_1 = starter_kit.number_of_inputs
-puts 'table_t1: '
+puts "ROBDD for #{file_1}: ".colorize(:blue)
 pp(t1)
 
 starter_kit = StarterKit.new(file_2)
@@ -37,7 +38,7 @@ robdd_2.build_func(starter_kit.on_set, 1, starter_kit.number_of_inputs)
 t2 = robdd_2.t.t
 u2 = t2.keys[-1]
 num_inputs_2 = starter_kit.number_of_inputs
-puts 'table_t2: '
+puts "ROBDD for #{file_2}: ".colorize(:blue)
 pp(t2)
 
 terminal_node_var_num = [num_inputs_1, num_inputs_2].max + 1
@@ -47,7 +48,32 @@ t1[1] = { i: terminal_node_var_num, l: nil, h: nil }
 t2[0] = { i: terminal_node_var_num, l: nil, h: nil }
 t2[1] = { i: terminal_node_var_num, l: nil, h: nil }
 
-final_robdd = ROBDD.new
-final_robdd.apply('and', u1, u2, t1, t2) # and operation
-puts "\nFinal ROBDD: "
-pp(final_robdd.t.t)
+time = Benchmark.realtime do
+  final_robdd = ROBDD.new
+  final_robdd.apply('and', u1, u2, t1, t2)
+  puts "\nFinal ROBDD after AND operation: ".colorize(:green)
+  pp(final_robdd.t.t)
+end
+
+puts "\nTime elapsed in AND operation: #{time*1000} milliseconds".colorize(:blue)
+puts
+
+time = Benchmark.realtime do
+  final_robdd = ROBDD.new
+  final_robdd.apply('or', u1, u2, t1, t2)
+  puts "\nFinal ROBDD after OR operation: ".colorize(:green)
+  pp(final_robdd.t.t)
+end
+
+puts "\nTime elapsed in OR operation: #{time*1000} milliseconds".colorize(:blue)
+puts
+
+time = Benchmark.realtime do
+  final_robdd = ROBDD.new
+  final_robdd.apply('xor', u1, u2, t1, t2)
+  puts "\nFinal ROBDD after XOR operation: ".colorize(:green)
+  pp(final_robdd.t.t)
+end
+
+puts "\nTime elapsed in XOR operation: #{time*1000} milliseconds".colorize(:blue)
+puts
