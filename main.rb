@@ -98,8 +98,13 @@ puts robdd.h.h
 # puts 'Finding parents for node 2:'
 # puts robdd.find_parent_nodes(2).inspect
 
-sifting = Sifting.new
-sifting.sift(robdd, starter_kit.number_of_inputs)
+time = Benchmark.realtime do
+  sifting = Sifting.new
+  sifting.sift(robdd, starter_kit.number_of_inputs)
+end
+
+puts "\nTime elapsed in Sifting operation: #{time*1000} milliseconds".colorize(:blue)
+puts
 
 puts 'new var order: '
 puts robdd.var_order

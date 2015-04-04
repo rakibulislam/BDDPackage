@@ -29,7 +29,6 @@ class ROBDD
     end
 
     return nodes_with_var
-
   end
 
   def find_parent_nodes(node_num)
@@ -44,9 +43,7 @@ class ROBDD
         parent_nodes[k] = t.t[k]
       end
     end
-
     return parent_nodes
-
   end
 
   def remove_redundant_node(node_num)
@@ -57,7 +54,6 @@ class ROBDD
      end
 
     # case when node is redundant, i.e node.l == node.h
-
     parent_nodes = find_parent_nodes(node_num)
 
     parent_nodes.each do |k, val|
@@ -70,13 +66,11 @@ class ROBDD
       if parent_nodes[k].h == node_num
         parent_nodes[k].h = node.h
       end
-
     end
 
     # parent's children have been properly set, so the node can be deleted
 
     t.delete_node(node_num)
-
   end
 
   def add_redundant_node(parent_node_num, child_node_num, var_num_in_node)
@@ -108,7 +102,6 @@ class ROBDD
       low_child_node = t.get_node(upper_node.l)
       high_child_node = t.get_node(upper_node.h)
 
-
       if upper_node.l < 2 # terminal nodes, 0 or 1
         add_redundant_node(upper_node_num,upper_node.l,lower_level_var)
       elsif low_child_node.i != lower_level_var
@@ -120,7 +113,6 @@ class ROBDD
       elsif high_child_node.i != lower_level_var
         add_redundant_node(upper_node_num,upper_node.h,lower_level_var)
       end
-
     end
 
     all_lower_nodes.each do |lower_node_num,lower_node|
@@ -154,7 +146,6 @@ class ROBDD
       t.set_node_value(v0, upper_level_var,v10,v00)
 
       t.set_node_value(upper_node_num, lower_level_var,v1,v0)
-
     end
 
     # the two vars would be swapped at this point
@@ -173,21 +164,18 @@ class ROBDD
     end
 
     #Table t should have a ROBDD at this point
-
     # updating the var_order
     upper_var_index = var_order.index(upper_level_var)
     lower_var_index = var_order.index(lower_level_var)
 
     var_order[upper_var_index] = lower_level_var
     var_order[lower_var_index] = upper_level_var
-
   end
 
   def minterm_set_var_val(minterm, i, var_val)
     # minterm is a string representing the minterm, eg 11x for x1x2 in a 3 var case
     # i is 1 based index
     # var_val is 0 or 1 (i.e binary)
-
     # var_num is 1 based
     var_num = var_order[i-1]
 
@@ -198,7 +186,6 @@ class ROBDD
     else
       minterm = '0'      
     end
-    
     return minterm
   end
   
