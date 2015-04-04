@@ -19,7 +19,10 @@ class ROBDD
   def find_nodes_with_var(var_num)
     nodes_with_var = Hash.new
     # should be replaced by hash iteration
-    (2...t.t.size).each do |k|
+    (t.t).each do |k, val|
+      if k < 2  #terminal nodes, so they can't be parents of any other node
+        next
+      end
       if(t.t[k].i == var_num)
         nodes_with_var[k] = t.t[k]
       end
@@ -31,8 +34,12 @@ class ROBDD
 
   def find_parent_nodes(node_num)
     parent_nodes = Hash.new
-    # should be replaced by hash iteration
-    (2...t.t.size).each do |k|
+
+    (t.t).each do |k, val|
+      if k < 2  #terminal nodes, so they can't be parents of any other node
+        next
+      end
+
       if t.t[k].l == node_num || t.t[k].h == node_num
         parent_nodes[k] = t.t[k]
       end
@@ -53,7 +60,7 @@ class ROBDD
 
     parent_nodes = find_parent_nodes(node_num)
 
-    (0...parent_nodes.size).each do |k|
+    parent_nodes.each do |k, val|
       if parent_nodes[k].l == node_num
         parent_nodes[k].l = node.l
       end
@@ -101,11 +108,16 @@ class ROBDD
       low_child_node = t.get_node(upper_node.l)
       high_child_node = t.get_node(upper_node.h)
 
-      if low_child_node.i != lower_level_var
+
+      if upper_node.l < 2 # terminal nodes, 0 or 1
+        add_redundant_node(upper_node_num,upper_node.l,lower_level_var)
+      elsif low_child_node.i != lower_level_var
         add_redundant_node(upper_node_num,upper_node.l,lower_level_var)
       end
 
-      if high_child_node.i != lower_level_var
+      if upper_node.h < 2 # terminal nodes, 0 or 1
+        add_redundant_node(upper_node_num,upper_node.h,lower_level_var)
+      elsif high_child_node.i != lower_level_var
         add_redundant_node(upper_node_num,upper_node.h,lower_level_var)
       end
 

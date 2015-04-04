@@ -33,6 +33,12 @@ class Sifting
       end
       sift_back(current_var)
 
+      # debug print
+      puts "sifted on var:"
+      puts current_var
+      puts "min robdd:"
+      puts current_robdd.t.t
+
     end
 
   end

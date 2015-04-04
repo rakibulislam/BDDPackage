@@ -4,6 +4,7 @@ require './triple'
 require './table_t'
 require './table_h'
 require './robdd'
+require './sifting'
 require 'pp'
 
 if ARGV[0]
@@ -32,15 +33,26 @@ robdd = ROBDD.new(starter_kit.number_of_inputs)
 
 puts 'Creating the ROBDD . . .'
 robdd.build_func(starter_kit.on_set, 1, starter_kit.number_of_inputs)
-puts 'table_t: '
-pp(robdd.t.t)
+puts 'original table_t: '
+puts robdd.t.t
+#pp(robdd.t.t)
 puts
-puts 'table_h: '
-pp(robdd.h.h)
+puts 'original table_h: '
+puts robdd.h.h
+#pp(robdd.h.h)
 
-puts 'Finding nodes with var 3:'
-puts robdd.find_nodes_with_var(3).inspect
+# puts 'Finding nodes with var 3:'
+# puts robdd.find_nodes_with_var(3).inspect
+#
+# puts 'Finding parents for node 2:'
+# puts robdd.find_parent_nodes(2).inspect
 
-puts 'Finding parents for node 2:'
-puts robdd.find_parent_nodes(2).inspect
+sifting = Sifting.new
+sifting.sift(robdd, starter_kit.number_of_inputs)
+
+puts 'new var order:'
+puts robdd.var_order
+puts 'table_t after sifting: '
+pp(robdd.t.t)
+
 
