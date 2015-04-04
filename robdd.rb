@@ -206,7 +206,7 @@ class ROBDD
     # func is an array of strings representing the sum of minterms, eg 11x + x01
     # var_num is 1 based
     # var_val is 0 or 1 (i.e binary)
-    #func = _func.clone
+    # func = _func.clone
     minterm_equals_1 = 'x' * total_num_of_vars
     func_result = []
     
@@ -265,11 +265,76 @@ class ROBDD
     end
   end
 
+  def apply(op, u1, u2, t1, t2)
+    puts "APP(#{u1}, #{u2})"
+
+    if t1[u1].is_a?(::Hash)
+      var_u1 = t1[u1][:i]
+    else
+      var_u1 = t1[u1].i
+    end
+
+    low_u1 = t1[u1].l if u1 > 1
+    high_u1 = t1[u1].h if u1 > 1
+
+    if t2[u2].is_a?(::Hash)
+      var_u2 = t2[u2][:i]
+    else
+      var_u2 = t2[u2].i
+    end
+
+    low_u2 = t2[u2].l if u2 > 1
+    high_u2 = t2[u2].h if u2 > 1
+
+    g = {}
+    key = build_key_for_g(u1, u2)
+
+    if g[key]
+      g[key]
+    elsif ([0, 1].include? u1) && ([0, 1].include? u2)
+      if op == 'and'
+        u = _and(u1, u2)
+      elsif op == 'or'
+        u = _or(u1, u2)
+      elsif op == 'xor'
+        u = _xor(u1, u2)
+      end
+    elsif var_u1 == var_u2
+      u = make(Triple.new(var_u1, apply(op, low_u1, low_u2, t1, t2), apply(op, high_u1, high_u2, t1, t2)))
+    elsif var_u1 < var_u2
+      u = make(Triple.new(var_u1, apply(op, low_u1, u2, t1, t2), apply(op, high_u1, u2, t1, t2)))
+    else
+      u = make(Triple.new(var_u2, apply(op, u1, low_u2, t1, t2), apply(op, u1, high_u2, t1, t2)))
+    end
+
+    g[key] = u
+    u
+  end
+
+  private
+
   def build_key_for_g(u1, u2)
     "#{u1},#{u2}"
   end
 
-  def op(u1, u2)
+  def _and(u1, u2)
     return 0 if u1 == 0 && u2 == 0
+    return 0 if u1 == 0 && u2 == 1
+    return 0 if u1 == 1 && u2 == 0
+    return 1 if u1 == 1 && u2 == 1
+  end
+
+  def _or(u1, u2)
+    return 0 if u1 == 0 && u2 == 0
+    return 1 if u1 == 0 && u2 == 1
+    return 1 if u1 == 1 && u2 == 0
+    return 1 if u1 == 1 && u2 == 1
+  end
+
+  def _xor(u1, u2)
+    return 0 if u1 == 0 && u2 == 0
+    return 1 if u1 == 0 && u2 == 1
+    return 1 if u1 == 1 && u2 == 0
+    return 0 if u1 == 1 && u2 == 1
   end
 end
