@@ -52,7 +52,7 @@ time = Benchmark.realtime do
   final_robdd = ROBDD.new
   final_robdd.apply('and', u1, u2, t1, t2)
   puts "\nFinal ROBDD after AND operation: ".colorize(:green)
-  pp(final_robdd.t.t)
+  pp(final_robdd.t.pretty_t)
 end
 
 puts "\nTime elapsed in AND operation: #{time*1000} milliseconds".colorize(:blue)
@@ -62,7 +62,7 @@ time = Benchmark.realtime do
   final_robdd = ROBDD.new
   final_robdd.apply('or', u1, u2, t1, t2)
   puts "\nFinal ROBDD after OR operation: ".colorize(:green)
-  pp(final_robdd.t.t)
+  pp(final_robdd.t.pretty_t)
 end
 
 puts "\nTime elapsed in OR operation: #{time*1000} milliseconds".colorize(:blue)
@@ -72,7 +72,7 @@ time = Benchmark.realtime do
   final_robdd = ROBDD.new
   final_robdd.apply('xor', u1, u2, t1, t2)
   puts "\nFinal ROBDD after XOR operation: ".colorize(:green)
-  pp(final_robdd.t.t)
+  pp(final_robdd.t.pretty_t)
 end
 
 puts "\nTime elapsed in XOR operation: #{time*1000} milliseconds".colorize(:blue)

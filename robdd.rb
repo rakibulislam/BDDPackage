@@ -87,12 +87,23 @@ class ROBDD
   def apply(op, u1, u2, t1, t2)
     puts "APP(#{u1}, #{u2})"
 
-    var_u1 = t1[u1][:i]
-    low_u1 = t1[u1][:l] if u1 > 1
-    high_u1 = t1[u1][:h] if u1 > 1
-    var_u2 = t2[u2][:i]
-    low_u2 = t2[u2][:l] if u2 > 1
-    high_u2 = t2[u2][:h] if u2 > 1
+    if t1[u1].is_a?(::Hash)
+      var_u1 = t1[u1][:i]
+    else
+      var_u1 = t1[u1].i
+    end
+
+    low_u1 = t1[u1].l if u1 > 1
+    high_u1 = t1[u1].h if u1 > 1
+
+    if t2[u2].is_a?(::Hash)
+      var_u2 = t2[u2][:i]
+    else
+      var_u2 = t2[u2].i
+    end
+
+    low_u2 = t2[u2].l if u2 > 1
+    high_u2 = t2[u2].h if u2 > 1
 
     g = {}
     key = build_key_for_g(u1, u2)
