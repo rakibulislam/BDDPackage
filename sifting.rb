@@ -43,7 +43,8 @@ class Sifting
     end
     current_var = current_robdd.var_order[current_var_pos]
     var_just_below = current_robdd.var_order[current_var_pos+1]
-    current_robdd.swap_vars(current_var,var_just_below)
+    # current_robdd.swap_vars(current_var,var_just_below)
+    current_robdd.swap_vars_robdd(current_var,var_just_below)
   end
 
   def sift_up_one_step(current_var_pos)
@@ -52,7 +53,8 @@ class Sifting
     end
     current_var = current_robdd.var_order[current_var_pos]
     var_just_above = current_robdd.var_order[current_var_pos-1]
-    current_robdd.swap_vars(var_just_above,current_var)
+    # current_robdd.swap_vars(var_just_above,current_var)
+    current_robdd.swap_vars_robdd(var_just_above,current_var)
   end
 
   def set_lowest_robdd_size(current_var_pos)

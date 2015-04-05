@@ -81,9 +81,15 @@ puts
 
 # Shahriar's Changes
 robdd = ROBDD.new(starter_kit.number_of_inputs)
+robdd.set_orig_func(starter_kit.on_set)
 
 puts 'Creating the ROBDD . . .'
 robdd.build_func(starter_kit.on_set, 1, starter_kit.number_of_inputs)
+# debug for node 39
+robdd.var_order = [3,2,1]
+
+puts "original var order:"
+puts robdd.var_order
 puts 'original table_t: '
 puts robdd.t.t
 #pp(robdd.t.t)

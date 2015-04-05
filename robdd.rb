@@ -1,9 +1,10 @@
 class ROBDD
-  attr_accessor :t, :h,  :var_order
+  attr_accessor :t, :h,  :var_order, :orig_func, :number_of_inputs
 
   def initialize(num_of_vars)
     @t = Table_T.new
     @h = Table_H.new
+    @number_of_inputs = num_of_vars
 
     # dynamic var_order is needed for sifting
     @var_order = []
@@ -14,6 +15,11 @@ class ROBDD
     (1..num_of_vars).each do |i|
       var_order << i
     end
+  end
+
+  #added to avoid refactoring initializer
+  def set_orig_func(func)
+    @orig_func = func
   end
 
   def find_nodes_with_var(var_num)
@@ -73,8 +79,26 @@ class ROBDD
     t.delete_node(node_num)
   end
 
+  def does_node_exist(i,l,h)
+    triple = Triple.new(i,l,h)
+    return h.member?(triple)
+  end
+
+  def get_new_node_num(i,l,h)
+    node = Triple.new(i,l,h)
+
+    if  h.member?(triple)
+      return h.lookup(triple)
+    else
+      u = t.add(triple)
+      h.insert(triple, u)
+    end
+
+  end
+
   def add_redundant_node(parent_node_num, child_node_num, var_num_in_node)
     new_node_num = t.add(Triple.new(var_num_in_node,child_node_num,child_node_num))
+    #new_node_num = get_new_node_num(var_num_in_node,child_node_num,child_node_num)
 
     parent_node = t.get_node(parent_node_num)
 
@@ -90,6 +114,26 @@ class ROBDD
 
   def get_size()
     return t.t.size
+  end
+
+  def swap_vars_robdd(upper_level_var, lower_level_var)
+
+    swap_vars_in_var_order(upper_level_var, lower_level_var)
+
+    t = Table_T.new
+    h = Table_H.new
+
+    build_func(orig_func, 1, number_of_inputs)
+
+    # debug
+    puts "Printing from swap var robdd:"
+    puts "current var order:"
+    puts var_order
+    puts "current robdd table:"
+    puts t.t
+
+
+
   end
 
   def swap_vars(upper_level_var, lower_level_var)
@@ -164,6 +208,10 @@ class ROBDD
     end
 
     #Table t should have a ROBDD at this point
+    swap_vars_in_var_order(upper_level_var, lower_level_var)
+  end
+
+  def swap_vars_in_var_order(upper_level_var, lower_level_var)
     # updating the var_order
     upper_var_index = var_order.index(upper_level_var)
     lower_var_index = var_order.index(lower_level_var)
