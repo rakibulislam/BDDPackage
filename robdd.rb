@@ -120,8 +120,8 @@ class ROBDD
 
     swap_vars_in_var_order(upper_level_var, lower_level_var)
 
-    t = Table_T.new
-    h = Table_H.new
+    self.t = Table_T.new
+    self.h = Table_H.new
 
     build_func(orig_func, 1, number_of_inputs)
 
