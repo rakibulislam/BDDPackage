@@ -81,9 +81,16 @@ puts
 
 # Shahriar's Changes
 robdd = ROBDD.new(starter_kit.number_of_inputs)
+robdd.set_orig_func(starter_kit.on_set)
+# debug for node 39
+#robdd.var_order = [1,2,3]
 
 puts 'Creating the ROBDD . . .'
 robdd.build_func(starter_kit.on_set, 1, starter_kit.number_of_inputs)
+
+
+puts "original var order:"
+puts robdd.var_order
 puts 'original table_t: '
 puts robdd.t.t
 #pp(robdd.t.t)
@@ -100,7 +107,7 @@ puts robdd.h.h
 
 time = Benchmark.realtime do
   sifting = Sifting.new
-  sifting.sift(robdd, starter_kit.number_of_inputs)
+  robdd = sifting.sift(robdd, starter_kit.number_of_inputs)
 end
 
 puts "\nTime elapsed in Sifting operation: #{time*1000} milliseconds".colorize(:blue)
