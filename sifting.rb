@@ -71,22 +71,30 @@ class Sifting
   end
 
   def sift_down(current_pos,new_pos,check_robdd_size)
-    (current_pos...new_pos).each do |k|
+    k = current_pos
+    while k < new_pos
+    # (current_pos...new_pos).each do |k|
      #for k in current_pos...new_pos
       sift_down_one_step(k)
       if(check_robdd_size)
         set_lowest_robdd_size(k+1)
       end
+
+      k = k + 1
     end
   end
 
   def sift_up(current_pos,new_pos,check_robdd_size)
-    (current_pos...new_pos).each do |k|
+    k = current_pos
+    while k > new_pos
+    # (current_pos...new_pos).each do |k|
     #for k in current_pos...new_pos
       sift_up_one_step(k)
       if(check_robdd_size)
         set_lowest_robdd_size(k-1)
       end
+
+      k = k - 1
     end
   end
 

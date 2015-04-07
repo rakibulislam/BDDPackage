@@ -83,7 +83,7 @@ puts
 robdd = ROBDD.new(starter_kit.number_of_inputs)
 robdd.set_orig_func(starter_kit.on_set)
 # debug for node 39
-robdd.var_order = [2,1,3]
+#robdd.var_order = [1,2,3]
 
 puts 'Creating the ROBDD . . .'
 robdd.build_func(starter_kit.on_set, 1, starter_kit.number_of_inputs)
