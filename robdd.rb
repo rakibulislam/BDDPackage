@@ -128,9 +128,9 @@ class ROBDD
     # debug
     puts "Printing from swap var robdd:"
     puts "current var order:"
-    puts var_order
+    puts var_order.inspect
     puts "current robdd table:"
-    puts t.t
+    puts t.pretty_t
 
 
 
