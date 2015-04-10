@@ -110,7 +110,7 @@ class Main
     robdd.build_func(starter_kit.on_set, 1, starter_kit.number_of_inputs)
 
     puts "original var order:"
-    puts robdd.var_order
+    puts robdd.var_order.inspect
     puts 'original table_t: '
     pp(robdd.t.pretty_t)
 

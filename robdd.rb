@@ -116,11 +116,12 @@ class ROBDD
 
     build_func(orig_func, 1, number_of_inputs)
     # debug
-    puts "Printing from swap var robdd:"
+    #puts "Printing from swap var robdd:"
     puts "current var order:"
     puts var_order.inspect
-    puts "current robdd table:"
-    puts t.pretty_t
+    puts "current robdd table size:"
+    puts t.t.size()
+    #puts t.pretty_t
   end
 
   def swap_vars(upper_level_var, lower_level_var)
