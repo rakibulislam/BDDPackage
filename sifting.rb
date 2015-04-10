@@ -32,11 +32,11 @@ class Sifting
       sift_back(current_var)
 
       # debug print
-      puts "sifted on var:"
+      puts "sifted on var:".colorize(:green)
       puts current_var
-      puts "current var order:"
+      puts "current var order: ".colorize(:blue)
       puts self.current_robdd.var_order.inspect
-      puts "robdd size for this var order:"
+      puts "robdd size for this var order: ".colorize(:green)
       puts self.current_robdd.t.t.size()
       #puts self.current_robdd.t.pretty_t
     end

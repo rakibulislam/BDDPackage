@@ -121,7 +121,7 @@ class Main
 
     puts 'final var order: '
     puts robdd.var_order.inspect
-    puts 'table_t after sifting: '
+    puts "\ntable_t after sifting: ".colorize(:blue)
     pp(robdd.t.pretty_t)
     puts "\nTime elapsed in Sifting operation: #{time*1000} milliseconds".colorize(:blue)
     puts

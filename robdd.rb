@@ -117,9 +117,9 @@ class ROBDD
     build_func(orig_func, 1, number_of_inputs)
     # debug
     #puts "Printing from swap var robdd:"
-    puts "current var order:"
+    puts "current var order: ".colorize(:blue)
     puts var_order.inspect
-    puts "current robdd table size:"
+    puts "current robdd table size: ".colorize(:green)
     puts t.t.size()
     #puts t.pretty_t
   end
