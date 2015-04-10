@@ -9,9 +9,7 @@ require 'pp'
 require 'benchmark'
 
 class Main
-
   def apply(file_1, file_2)
-
     starter_kit = StarterKit.new(file_1)
     # read eblif file and set the instance variables after parsing the eblif file
     starter_kit.read_eblif
@@ -69,7 +67,6 @@ class Main
 
     puts "\nTime elapsed in XOR operation: #{time*1000} milliseconds".colorize(:blue)
     puts
-
   end
 
   def apply_one_param(input)
@@ -82,7 +79,6 @@ class Main
   end
 
   def robdd(_filename)
-
     filename = "#{_filename}.eblif"
 
     starter_kit = StarterKit.new(filename)
@@ -97,16 +93,12 @@ class Main
 
     puts "variable order:"
     puts robdd.var_order.inspect
-    puts 'table_t: '
-    puts (robdd.t.pretty_t)
-
-
+    puts 'ROBDD: '
+    pp (robdd.t.pretty_t)
   end
 
   def sifting(_filename)
-
     filename = "#{_filename}.eblif"
-
     starter_kit = StarterKit.new(filename)
     # read eblif file and set the instance variables after parsing the eblif file
     starter_kit.read_eblif
@@ -117,16 +109,10 @@ class Main
     puts 'Creating the ROBDD . . .'
     robdd.build_func(starter_kit.on_set, 1, starter_kit.number_of_inputs)
 
-
     puts "original var order:"
     puts robdd.var_order
     puts 'original table_t: '
-    puts robdd.t.pretty_t
-#pp(robdd.t.t)
-    # puts
-    # puts 'original table_h: '
-    # puts robdd.h.h
-#pp(robdd.h.h)
+    pp(robdd.t.pretty_t)
 
     time = Benchmark.realtime do
       sifting = Sifting.new
@@ -137,16 +123,13 @@ class Main
     puts robdd.var_order.inspect
     puts 'table_t after sifting: '
     pp(robdd.t.pretty_t)
-
     puts "\nTime elapsed in Sifting operation: #{time*1000} milliseconds".colorize(:blue)
     puts
   end
-
 end
 
 if ARGV.length == 2
   cmd = ARGV[0].downcase
-
   main = Main.new
 
   case  cmd
@@ -161,7 +144,6 @@ else
   print "\nPlease enter the function you would like to perform (e.g robdd or sifting or apply):"
 
   cmd = gets.chomp.downcase
-
   main = Main.new
 
   case  cmd
@@ -183,8 +165,4 @@ else
       file_name = "node#{file_number}"
       main.sifting(file_name)
   end
-
 end
-
-
-
