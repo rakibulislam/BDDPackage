@@ -9,6 +9,8 @@ class Sifting
     @highest_var_pos = self.num_of_vars-1
     check_robdd_size = true
 
+    puts "Started Sifting..."
+
     (0...self.orig_var_order.length).each do |k|
       current_var = self.orig_var_order[k]
       current_var_pos = self.current_robdd.var_order.index(current_var)
@@ -34,8 +36,9 @@ class Sifting
       puts current_var
       puts "current var order:"
       puts self.current_robdd.var_order.inspect
-      puts "min robdd:"
-      puts self.current_robdd.t.pretty_t
+      puts "robdd size for this var order:"
+      puts self.current_robdd.t.t.size()
+      #puts self.current_robdd.t.pretty_t
     end
 
     return self.current_robdd
