@@ -66,16 +66,13 @@ class ROBDD
       if parent_nodes[k].l == node_num
         parent_nodes[k].l = node.l
       end
-
       # the parent node itself could be redundant, so both it's high and low branches have to be checked
-
       if parent_nodes[k].h == node_num
         parent_nodes[k].h = node.h
       end
     end
 
     # parent's children have been properly set, so the node can be deleted
-
     t.delete_node(node_num)
   end
 
@@ -86,20 +83,17 @@ class ROBDD
 
   def get_new_node_num(i,l,h)
     node = Triple.new(i,l,h)
-
     if  h.member?(triple)
       return h.lookup(triple)
     else
       u = t.add(triple)
       h.insert(triple, u)
     end
-
   end
 
   def add_redundant_node(parent_node_num, child_node_num, var_num_in_node)
     new_node_num = t.add(Triple.new(var_num_in_node,child_node_num,child_node_num))
     #new_node_num = get_new_node_num(var_num_in_node,child_node_num,child_node_num)
-
     parent_node = t.get_node(parent_node_num)
 
     if parent_node.l == child_node_num
@@ -109,7 +103,6 @@ class ROBDD
     if parent_node.h == child_node_num
       parent_node.h = new_node_num
     end
-
   end
 
   def get_size()
@@ -117,27 +110,20 @@ class ROBDD
   end
 
   def swap_vars_robdd(upper_level_var, lower_level_var)
-
     swap_vars_in_var_order(upper_level_var, lower_level_var)
-
     self.t = Table_T.new
     self.h = Table_H.new
 
     build_func(orig_func, 1, number_of_inputs)
-
     # debug
     puts "Printing from swap var robdd:"
     puts "current var order:"
     puts var_order.inspect
     puts "current robdd table:"
     puts t.pretty_t
-
-
-
   end
 
   def swap_vars(upper_level_var, lower_level_var)
-
     all_upper_nodes = find_nodes_with_var(upper_level_var)
     all_lower_nodes = find_nodes_with_var(lower_level_var)
 
@@ -160,9 +146,7 @@ class ROBDD
     end
 
     all_lower_nodes.each do |lower_node_num,lower_node|
-
       parent_nodes = find_parent_nodes(lower_node_num)
-
       parent_nodes.each do |parent_node_num, parent_node|
         if parent_node.i != upper_level_var
           add_redundant_node(parent_node_num,lower_node_num,upper_level_var)
@@ -172,9 +156,7 @@ class ROBDD
 
     # updating node list, since it might have changed
     all_upper_nodes = find_nodes_with_var(upper_level_var)
-
     all_upper_nodes.each do |upper_node_num, upper_node|
-
       # all the v's are node numbers
       v1 = upper_node.h
       v0 = upper_node.l
@@ -194,7 +176,6 @@ class ROBDD
 
     # the two vars would be swapped at this point
     # need to remove redundant nodes
-
 
     all_lower_nodes = find_nodes_with_var(lower_level_var)
     all_upper_nodes = find_nodes_with_var(upper_level_var)

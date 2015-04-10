@@ -35,8 +35,7 @@ class Sifting
       puts "current var order:"
       puts self.current_robdd.var_order.inspect
       puts "min robdd:"
-      puts self.current_robdd.t.t
-
+      puts self.current_robdd.t.pretty_t
     end
 
     return self.current_robdd
