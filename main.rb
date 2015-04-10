@@ -19,7 +19,7 @@ class Main
     u1 = t1.keys[-1]
     num_inputs_1 = starter_kit.number_of_inputs
     puts "ROBDD for #{file_1}: ".colorize(:blue)
-    pp(t1)
+    pp(robdd_1.t.pretty_t)
 
     starter_kit = StarterKit.new(file_2)
     starter_kit.read_eblif
@@ -29,7 +29,7 @@ class Main
     u2 = t2.keys[-1]
     num_inputs_2 = starter_kit.number_of_inputs
     puts "ROBDD for #{file_2}: ".colorize(:blue)
-    pp(t2)
+    pp(robdd_2.t.pretty_t)
 
     terminal_node_var_num = [num_inputs_1, num_inputs_2].max + 1
 
