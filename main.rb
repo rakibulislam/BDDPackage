@@ -59,6 +59,7 @@ class Main
 
     `dot -Tps #{dot_file_path} -o #{ps_file_path}`
     puts "\nApply (AND operation) Graph generated. Please go to this path: #{ps_file_path} to see the graph!".colorize(:blue)
+    `open #{ps_file_path}`
 
     time = Benchmark.realtime do
       final_robdd = ROBDD.new(starter_kit.number_of_inputs)
@@ -79,6 +80,7 @@ class Main
 
     `dot -Tps #{dot_file_path} -o #{ps_file_path}`
     puts "\nApply (OR operation) Graph generated. Please go to this path: #{ps_file_path} to see the graph!".colorize(:blue)
+    `open #{ps_file_path}`
 
     time = Benchmark.realtime do
       final_robdd = ROBDD.new(starter_kit.number_of_inputs)
@@ -99,6 +101,8 @@ class Main
 
     `dot -Tps #{dot_file_path} -o #{ps_file_path}`
     puts "\nApply (XOR operation) Graph generated. Please go to this path: #{ps_file_path} to see the graph!".colorize(:blue)
+    `open #{ps_file_path}`
+    puts
   end
 
   def apply_one_param(input)
@@ -135,6 +139,7 @@ class Main
 
     `dot -Tps #{dot_file_path} -o #{ps_file_path}`
     puts "\nROBDD Graph generated. Please go to this path: #{ps_file_path} to see the graph!".colorize(:blue)
+    `open #{ps_file_path}`
     puts
   end
 
@@ -175,6 +180,7 @@ class Main
 
     `dot -Tps #{dot_file_path} -o #{ps_file_path}`
     puts "\nSifting Graph generated. Please go to this path: #{ps_file_path} to see the graph!".colorize(:blue)
+    `open #{ps_file_path}`
     puts
   end
 end
