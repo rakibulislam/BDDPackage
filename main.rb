@@ -97,9 +97,13 @@ class Main
     pp (robdd.t.pretty_t)
 
     dot_fmt = robdd.t.get_dot_format
+    dot_file_path = './bdd_graphs/robdd_graphs/'+_filename + '.dot'
+    ps_file_path = './bdd_graphs/robdd_graphs/'+_filename + '.ps'
+    File.write(dot_file_path, dot_fmt)
 
-    File.write('./bdd_graphs/robdd_graphs/'+_filename + '.dot',dot_fmt)
-    puts dot_fmt
+    `dot -Tps #{dot_file_path} -o #{ps_file_path}`
+    puts "\nROBDD Graph generated. Please go to this path: #{ps_file_path} to see the graph!".colorize(:blue)
+    puts
   end
 
   def sifting(_filename)

@@ -53,15 +53,12 @@ class Table_T
       if u < 2
         next
       end
-
       fmt = fmt + node_names[u] + " -> "  + node_names[tpl.l] + " [style = dashed];\n"
       fmt = fmt + node_names[u] + " -> "  + node_names[tpl.h] + ";\n"
     end
 
     fmt = fmt + " }"
-
-    return fmt
-
+    fmt
   end
 
   def pretty_t
@@ -79,8 +76,4 @@ class Table_T
     end
     h
   end
-
-
-
-
 end
