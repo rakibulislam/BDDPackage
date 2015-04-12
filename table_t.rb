@@ -36,6 +36,34 @@ class Table_T
     { i: triple.i, l: triple.l, h: triple.h }
   end
 
+  def get_dot_format
+    node_names = Hash.new
+
+    t.each do |u, tpl|
+      if u < 2
+        node_names[u] = u.to_s
+      else
+        node_names[u] = "x" + tpl.i.to_s + "_node" + u.to_s
+      end
+    end
+
+    fmt = "digraph G { \n 0 [shape=box]; \n 1 [shape=box]; \n"
+
+    t.each do |u, tpl|
+      if u < 2
+        next
+      end
+
+      fmt = fmt + node_names[u] + " -> "  + node_names[tpl.l] + " [style = dashed];\n"
+      fmt = fmt + node_names[u] + " -> "  + node_names[tpl.h] + ";\n"
+    end
+
+    fmt = fmt + " }"
+
+    return fmt
+
+  end
+
   def pretty_t
     h = {}
     h[0] = nil
@@ -51,4 +79,8 @@ class Table_T
     end
     h
   end
+
+
+
+
 end

@@ -95,6 +95,8 @@ class Main
     puts robdd.var_order.inspect
     puts 'ROBDD: '
     pp (robdd.t.pretty_t)
+
+    puts robdd.t.get_dot_format
   end
 
   def sifting(_filename)
