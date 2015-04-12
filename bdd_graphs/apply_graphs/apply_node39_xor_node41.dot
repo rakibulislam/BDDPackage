@@ -1,0 +1,18 @@
+digraph G { 
+ 0 [shape=box]; 
+ 1 [shape=box]; 
+x4_node2 -> 0 [style = dashed];
+x4_node2 -> 1;
+x3_node3 -> 0 [style = dashed];
+x3_node3 -> x4_node2;
+x3_node4 -> x4_node2 [style = dashed];
+x3_node4 -> 0;
+x2_node5 -> x3_node3 [style = dashed];
+x2_node5 -> x3_node4;
+x4_node6 -> 1 [style = dashed];
+x4_node6 -> 0;
+x3_node7 -> x4_node6 [style = dashed];
+x3_node7 -> 0;
+x1_node8 -> x2_node5 [style = dashed];
+x1_node8 -> x3_node7;
+ }

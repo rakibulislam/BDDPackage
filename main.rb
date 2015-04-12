@@ -38,6 +38,8 @@ class Main
     t2[0] = { i: terminal_node_var_num, l: nil, h: nil }
     t2[1] = { i: terminal_node_var_num, l: nil, h: nil }
 
+    final_robdd = ROBDD.new(starter_kit.number_of_inputs)
+
     time = Benchmark.realtime do
       final_robdd = ROBDD.new(starter_kit.number_of_inputs)
       final_robdd.apply('and', u1, u2, t1, t2)
@@ -46,7 +48,18 @@ class Main
     end
 
     puts "\nTime elapsed in AND operation: #{time*1000} milliseconds".colorize(:blue)
-    puts
+
+    file_name = "apply_#{file_1.gsub('.eblif', '')}_and_#{file_2.gsub('.eblif', '')}"
+
+    dot_file_path = './bdd_graphs/apply_graphs/'+ file_name + '.dot'
+    ps_file_path = './bdd_graphs/apply_graphs/'+ file_name + '.ps'
+
+    dot_fmt = final_robdd.t.get_dot_format
+    File.write(dot_file_path, dot_fmt)
+
+    `dot -Tps #{dot_file_path} -o #{ps_file_path}`
+    puts "\nApply (AND operation) Graph generated. Please go to this path: #{ps_file_path} to see the graph!".colorize(:blue)
+    `open #{ps_file_path}`
 
     time = Benchmark.realtime do
       final_robdd = ROBDD.new(starter_kit.number_of_inputs)
@@ -56,7 +69,18 @@ class Main
     end
 
     puts "\nTime elapsed in OR operation: #{time*1000} milliseconds".colorize(:blue)
-    puts
+
+    file_name = "apply_#{file_1.gsub('.eblif', '')}_or_#{file_2.gsub('.eblif', '')}"
+
+    dot_file_path = './bdd_graphs/apply_graphs/'+ file_name + '.dot'
+    ps_file_path = './bdd_graphs/apply_graphs/'+ file_name + '.ps'
+
+    dot_fmt = final_robdd.t.get_dot_format
+    File.write(dot_file_path, dot_fmt)
+
+    `dot -Tps #{dot_file_path} -o #{ps_file_path}`
+    puts "\nApply (OR operation) Graph generated. Please go to this path: #{ps_file_path} to see the graph!".colorize(:blue)
+    `open #{ps_file_path}`
 
     time = Benchmark.realtime do
       final_robdd = ROBDD.new(starter_kit.number_of_inputs)
@@ -66,6 +90,18 @@ class Main
     end
 
     puts "\nTime elapsed in XOR operation: #{time*1000} milliseconds".colorize(:blue)
+
+    file_name = "apply_#{file_1.gsub('.eblif', '')}_xor_#{file_2.gsub('.eblif', '')}"
+
+    dot_file_path = './bdd_graphs/apply_graphs/'+ file_name + '.dot'
+    ps_file_path = './bdd_graphs/apply_graphs/'+ file_name + '.ps'
+
+    dot_fmt = final_robdd.t.get_dot_format
+    File.write(dot_file_path, dot_fmt)
+
+    `dot -Tps #{dot_file_path} -o #{ps_file_path}`
+    puts "\nApply (XOR operation) Graph generated. Please go to this path: #{ps_file_path} to see the graph!".colorize(:blue)
+    `open #{ps_file_path}`
     puts
   end
 
@@ -95,6 +131,16 @@ class Main
     puts robdd.var_order.inspect
     puts 'ROBDD: '
     pp (robdd.t.pretty_t)
+
+    dot_fmt = robdd.t.get_dot_format
+    dot_file_path = './bdd_graphs/robdd_graphs/'+_filename + '.dot'
+    ps_file_path = './bdd_graphs/robdd_graphs/'+_filename + '.ps'
+    File.write(dot_file_path, dot_fmt)
+
+    `dot -Tps #{dot_file_path} -o #{ps_file_path}`
+    puts "\nROBDD Graph generated. Please go to this path: #{ps_file_path} to see the graph!".colorize(:blue)
+    `open #{ps_file_path}`
+    puts
   end
 
   def sifting(_filename)
@@ -124,6 +170,17 @@ class Main
     puts "\ntable_t after sifting: ".colorize(:blue)
     pp(robdd.t.pretty_t)
     puts "\nTime elapsed in Sifting operation: #{time*1000} milliseconds".colorize(:blue)
+    puts
+
+    dot_file_path = './bdd_graphs/sifting_graphs/'+_filename + '.dot'
+    ps_file_path = './bdd_graphs/sifting_graphs/'+_filename + '.ps'
+
+    dot_fmt = robdd.t.get_dot_format
+    File.write(dot_file_path, dot_fmt)
+
+    `dot -Tps #{dot_file_path} -o #{ps_file_path}`
+    puts "\nSifting Graph generated. Please go to this path: #{ps_file_path} to see the graph!".colorize(:blue)
+    `open #{ps_file_path}`
     puts
   end
 end
