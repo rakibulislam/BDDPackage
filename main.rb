@@ -45,7 +45,7 @@ class Main
       pp(final_robdd.t.pretty_t)
     end
 
-    puts "\nTime elapsed in AND operation: #{time*100} milliseconds".colorize(:blue)
+    puts "\nTime elapsed in AND operation: #{time*1000} milliseconds".colorize(:blue)
     puts
 
     time = Benchmark.realtime do
@@ -55,7 +55,7 @@ class Main
       pp(final_robdd.t.pretty_t)
     end
 
-    puts "\nTime elapsed in OR operation: #{time*100} milliseconds".colorize(:blue)
+    puts "\nTime elapsed in OR operation: #{time*1000} milliseconds".colorize(:blue)
     puts
 
     time = Benchmark.realtime do
@@ -65,7 +65,7 @@ class Main
       pp(final_robdd.t.pretty_t)
     end
 
-    puts "\nTime elapsed in XOR operation: #{time*100} milliseconds".colorize(:blue)
+    puts "\nTime elapsed in XOR operation: #{time*1000} milliseconds".colorize(:blue)
     puts
   end
 
@@ -123,7 +123,7 @@ class Main
     puts robdd.var_order.inspect
     puts "\ntable_t after sifting: ".colorize(:blue)
     pp(robdd.t.pretty_t)
-    puts "\nTime elapsed in Sifting operation: #{time*100} milliseconds".colorize(:blue)
+    puts "\nTime elapsed in Sifting operation: #{time*1000} milliseconds".colorize(:blue)
     puts
   end
 end
