@@ -96,7 +96,10 @@ class Main
     puts 'ROBDD: '
     pp (robdd.t.pretty_t)
 
-    puts robdd.t.get_dot_format
+    dot_fmt = robdd.t.get_dot_format
+
+    File.write('./bdd_graphs/robdd_graphs/'+_filename + '.dot',dot_fmt)
+    puts dot_fmt
   end
 
   def sifting(_filename)
@@ -127,6 +130,12 @@ class Main
     pp(robdd.t.pretty_t)
     puts "\nTime elapsed in Sifting operation: #{time*1000} milliseconds".colorize(:blue)
     puts
+
+    dot_fmt = robdd.t.get_dot_format
+
+    File.write('./bdd_graphs/sifting_graphs/sifting_'+_filename + '.dot',dot_fmt)
+    puts dot_fmt
+
   end
 end
 
