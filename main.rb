@@ -135,11 +135,15 @@ class Main
     puts "\nTime elapsed in Sifting operation: #{time*1000} milliseconds".colorize(:blue)
     puts
 
+    dot_file_path = './bdd_graphs/sifting_graphs/'+_filename + '.dot'
+    ps_file_path = './bdd_graphs/sifting_graphs/'+_filename + '.ps'
+
     dot_fmt = robdd.t.get_dot_format
+    File.write(dot_file_path, dot_fmt)
 
-    File.write('./bdd_graphs/sifting_graphs/sifting_'+_filename + '.dot',dot_fmt)
-    puts dot_fmt
-
+    `dot -Tps #{dot_file_path} -o #{ps_file_path}`
+    puts "\nSifting Graph generated. Please go to this path: #{ps_file_path} to see the graph!".colorize(:blue)
+    puts
   end
 end
 
