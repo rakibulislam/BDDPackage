@@ -1,0 +1,4 @@
+digraph G { 
+ 0 [shape=box]; 
+ 1 [shape=box]; 
+ }
